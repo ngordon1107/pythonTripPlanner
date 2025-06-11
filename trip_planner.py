@@ -25,12 +25,12 @@ Exit = Exit Program
             if trip_name == "":
                 print("\n**Error: You must enter a trip name!\n")
                 continue
-            elif trip_name not in trips:
-                trips.append({trip_name: {}})
-            else:
+            elif trip_name in trips:
                 print("\n**Error: It looks like we already have a trip with this name. Please rename your trip, or go to edit mode to edit the existing trip.\n")
                 newTripMode = False
                 break
+            else:
+                trips.append({trip_name: {}})
             country = input(f"Great! Which country/region will your {trip_name} be taking place? ")
             city = input(f"(Optional, press enter to skip) Is there a particular city you’re visiting? ")
             validDate = False
