@@ -22,8 +22,11 @@ Exit = Exit Program
         newTripMode = True
         while newTripMode:
             trip_name = input("Awesome! Let’s start planning! To start off, what would you like to call this trip? ")
-            if trip_name not in trips:
-                    trips.append({trip_name:{}})
+            if trip_name == "":
+                print("\n**Error: You must enter a trip name!\n")
+                continue
+            elif trip_name not in trips:
+                trips.append({trip_name: {}})
             else:
                 print("\n**Error: It looks like we already have a trip with this name. Please rename your trip, or go to edit mode to edit the existing trip.\n")
                 newTripMode = False
@@ -41,17 +44,27 @@ Exit = Exit Program
                             month = int(arrival[0:2])
                             day = int(arrival[3:5])
                             year = int(arrival[6:10])
-                            print(month, day, year)
                         except:
-                            print("You must enter a valid date.")
+                            print("You must enter a valid date!")
                             continue
                     else:
-                        print("You must enter a valid date.")
+                        print("You must enter a valid date!")
                         continue
                 departure = input(f"(Optional, press enter to skip) Do you have a departure date? (MM/DD/YYYY) ")
-                #if departure != "":
-                break
-
+                if departure != "":
+                    # Validating that length of string is correct
+                    if len(departure) == 10:
+                        try:
+                            month = int(departure[0:2])
+                            day = int(departure[3:5])
+                            year = int(departure[6:10])
+                        except:
+                            print("You must enter a valid date!")
+                            continue
+                    else:
+                        print("You must enter a valid date!")
+                        continue
+                validDate = True
     elif userInput.upper() == "E":
         while editTripMode:
             pass
