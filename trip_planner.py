@@ -1,18 +1,10 @@
-from Data.data import createDB
 from new_trip import new_trip
 
+trips = {}
 running = True
 print("Welcome to the Trip Planner App!")
 
 while running:
-    # Initializing Trip Database
-    try:
-        # If Trip Planner has already been used, loading existing data
-        tripDB = loadDB()
-    except:
-        # If Trip Planner has never been used or if the user never saved any data, create a new file to store the data
-        tripDB = createDB()
-
     userInput = input("""
 What would you like to do? Please enter the appropriate keyword to proceed.
     
@@ -23,7 +15,7 @@ D = Delete an existing trip
 Exit = Exit Program
 >>> """)
     if userInput.upper() == "A":
-        new_trip(tripDB)
+        new_trip(trips)
     elif userInput.upper() == "E":
         while editTripMode:
             pass

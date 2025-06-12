@@ -1,6 +1,6 @@
 from utils import setDate
 
-def new_trip(tripDB):
+def new_trip(trips):
     newTripMode = True
     while newTripMode:
         trip_name = input("Awesome! Let’s start planning! To start off, what would you like to call this trip? ")
@@ -8,7 +8,7 @@ def new_trip(tripDB):
             print("\n**Error: You must enter a trip name!\n")
             continue
         # Checking for duplicate keys(trip names)
-        elif trip_name in tripDB:
+        elif trip_name in trips.keys():
             print("\n**Error: It looks like we already have a trip with this name. Please rename your trip, or go to edit mode to edit the existing trip.\n")
             newTripMode = False
             return
@@ -21,7 +21,7 @@ def new_trip(tripDB):
             departure = setDate("departure")
 
             # Adding trip details to list
-            tripDB[0][trip_name] = {
+            trips[trip_name] = {
                 "City": city,
                 "Country": country,
                 "Arrival": arrival,
