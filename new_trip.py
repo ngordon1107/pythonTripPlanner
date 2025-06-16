@@ -1,9 +1,9 @@
 from utils import setDate
 
-def new_trip(trips):
+def newTrip(trips):
     newTripMode = True
     while newTripMode:
-        trip_name = input("Awesome! Let’s start planning! To start off, what would you like to call this trip? ")
+        trip_name = input("Awesome! Let’s start planning! To start off, what would you like to call this trip? \n>> ")
         if trip_name == "":
             print("\n**Error: You must enter a trip name!\n")
             continue
@@ -13,8 +13,8 @@ def new_trip(trips):
             newTripMode = False
             return
         else:
-            country = input(f"Great! Which country/region will your {trip_name} be taking place? ")
-            city = input(f"(Optional, press enter to skip) Is there a particular city you’re visiting? ")
+            region = input(f"Great! Which country/region will your {trip_name} be taking place? \n>> ")
+            city = input(f"(Optional, press enter to skip) Is there a particular city you’re visiting? \n>> ")
 
             # Collecting and Validating date input
             arrival = setDate("arrival")
@@ -23,7 +23,7 @@ def new_trip(trips):
             # Adding trip details to list
             trips[trip_name] = {
                 "City": city,
-                "Country": country,
+                "Country/Region": region,
                 "Arrival": arrival,
                 "Departure": departure,
                 # "Hotel":
