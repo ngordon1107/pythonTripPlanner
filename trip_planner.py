@@ -25,22 +25,19 @@ Exit = Exit Program
 >>> """)
     if userInput.upper() == "A":
         newTrip(trips)
-    elif userInput.upper() == "E":
-        editTrip(trips)
-    elif userInput.upper() == "V":
-        if len(trips.keys()) == 0:
-            print("*** Error: No trips to display, please add a trip first!")
-        else:
-            selectedTrip = input("Which trip would you like to view in more details? \n>> ")
-            viewTrip(selectedTrip)
-    elif userInput.upper() == "D":
-        if len(trips.keys()) == 0:
-            print("*** Error: No trips to delete, please add a trip first!")
-        else:
-            deleteTrip(trips)
     elif userInput.upper() == "EXIT":
         running = False
     else:
-        print("\n**Error: Invalid input, please try again!\n")
+        if len(trips.keys()) == 0:
+            print("*** Error: Please add a trip first!")
+        elif userInput.upper() == "E":
+            editTrip(trips)
+        elif userInput.upper() == "V":
+            selectedTrip = input("Which trip would you like to view in more details? \n>> ")
+            viewTrip(selectedTrip)
+        elif userInput.upper() == "D":
+            deleteTrip(trips)
+        else:
+            print("\n**Error: Invalid input, please try again!\n")
 
 

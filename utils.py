@@ -26,8 +26,14 @@ def setDate(name):
 
 def getDate(value):
     date = ""
-    arrival = str(value["Arrival"].month) + "/" + str(value["Arrival"].day) + "/" + str(value["Arrival"].year)
-    departure = str(value["Departure"].month) + "/" + str(value["Departure"].day) + "/" + str(value["Departure"].year)
+    try:
+        arrival = str(value["Arrival"].month) + "/" + str(value["Arrival"].day) + "/" + str(value["Arrival"].year)
+    except:
+        arrival = ""
+    try:
+        departure = str(value["Departure"].month) + "/" + str(value["Departure"].day) + "/" + str(value["Departure"].year)
+    except:
+        departure = ""
     if arrival != "" and departure != "":
         date = arrival + "-" + departure
     elif departure != "":
