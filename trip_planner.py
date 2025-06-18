@@ -1,5 +1,4 @@
 import json
-
 from new_trip import newTrip
 from edit_trip import editTrip
 from delete_trips import deleteTrip
@@ -16,14 +15,12 @@ while running:
     try:
         db = open(db_file,"r")
         trips = json.load(db)
-        print(trips)
 
     # If there is no existing database file, create one
     except:
         with open(db_file, "w") as db:
             trips = {}
             json.dump(trips, db)
-            print(db, "DB")
         continue
     # If there were any previously added trips, display them here
     if len(trips.keys()) > 0:
