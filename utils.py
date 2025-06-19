@@ -56,6 +56,17 @@ def getCurrentTrips(trips):
         print(f"Name: {key} | Destination: {destination} | Date: {date}")
     print("\n-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-\n")
 
+def getCleanedTripList(trips):
+    cleaned_list = []
+    for key in trips.keys():
+            cleaned_list.append(key.upper())
+    return cleaned_list
+
+
+
 def modifyTrip(action, mode, trips):
     selectedTrip = input(f"Which trip would you like to {action}? \n>> ")
+    if selectedTrip.upper() not in getCleanedTripList(trips):
+        print("\n**Error: Invalid input, please try again! (Please be sure to double-check spelling and/or title)\n")
+        return
     mode(selectedTrip, trips)

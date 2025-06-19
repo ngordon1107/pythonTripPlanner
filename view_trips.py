@@ -5,7 +5,7 @@ def viewTrip(selectedTrip, trips):
     while viewTripMode:
         for key in trips.keys():
             if key.upper() == selectedTrip.upper():
-                print(f"-*-*-*-*-Here are the details for your {key}-*-*-*-*-\n")
+                print(f"-*-*-*-*- Here are the details for your {key} -*-*-*-*-\n")
                 for subkey, subvalue in trips[key].items():
                     if type(subvalue) == str:
                         print(subkey + ": " + subvalue)
