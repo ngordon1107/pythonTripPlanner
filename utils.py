@@ -23,3 +23,42 @@ def setDate(name):
         # Ending loop if user did not enter anything
         validDate = True
     return
+
+def getDate(value):
+    date = ""
+    try:
+        arrival = str(value["Arrival"].month) + "/" + str(value["Arrival"].day) + "/" + str(value["Arrival"].year)
+    except:
+        arrival = ""
+    try:
+        departure = str(value["Departure"].month) + "/" + str(value["Departure"].day) + "/" + str(value["Departure"].year)
+    except:
+        departure = ""
+    if arrival != "" and departure != "":
+        date = arrival + "-" + departure
+    elif departure != "":
+        date = arrival
+    elif arrival != "":
+        date = departure
+    return date
+
+def getDestination(value):
+    destination = "Coming Soon"
+    city = value["City"]
+    region = value["Country/Region"]
+    if city != "" and region != "":
+        destination = city + ", " + region
+    elif city != "":
+        destination = city
+    elif region != "":
+        destination = region
+    return destination
+
+def getCurrentTrips(trips):
+    print("-*-*-*-*-Here are your current trips-*-*-*-*-\n")
+    for key, value in trips.items():
+        # Collecting the destination
+        destination = getDestination(value)
+        date = getDate(value)
+        print(f"Name: {key} | Destination: {destination} | Date: {date}")
+    print("\n-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-\n")
