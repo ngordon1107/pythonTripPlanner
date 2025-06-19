@@ -1,19 +1,18 @@
-import datetime as date
-
 def setDate(name):
     validDate = False
     while not validDate:
-        dateInput = input(f"(Optional, press enter to skip) Do you have a date for your {name}? (MM/DD/YYYY) ")
+        dateInput = input(f"(Optional, press enter to skip) Do you have a date for your {name}? (MM/DD/YYYY)\n>> ")
         # Checking to see if user attempted to enter a date.
         if dateInput != "":
             # Validating that length of string is correct -- 10 characters (8 integers and 2 delimiters)
             if len(dateInput) == 10:
                 # Validating int values were entered for MM, DD or YYYY inputs.
                 try:
-                    date_month = int(dateInput[0:2])
-                    date_day = int(dateInput[3:5])
-                    date_year = int(dateInput[6:10])
-                    return date.date(date_year, date_month, date_day)
+                    date_month = dateInput[0:2]
+                    date_day = dateInput[3:5]
+                    date_year = dateInput[6:10]
+                    date = date_month + "/" + date_day + "/" + date_year
+                    return date
                 except:
                     print("You must enter a valid date!")
                     continue
@@ -26,14 +25,8 @@ def setDate(name):
 
 def getDate(value):
     date = ""
-    try:
-        arrival = str(value["Arrival"].month) + "/" + str(value["Arrival"].day) + "/" + str(value["Arrival"].year)
-    except:
-        arrival = ""
-    try:
-        departure = str(value["Departure"].month) + "/" + str(value["Departure"].day) + "/" + str(value["Departure"].year)
-    except:
-        departure = ""
+    arrival = value["Arrival"]
+    departure = value["Departure"]
     if arrival != "" and departure != "":
         date = arrival + "-" + departure
     elif departure != "":
@@ -62,3 +55,7 @@ def getCurrentTrips(trips):
         date = getDate(value)
         print(f"Name: {key} | Destination: {destination} | Date: {date}")
     print("\n-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-\n")
+
+def modifyTrip(action, mode, trips):
+    selectedTrip = input(f"Which trip would you like to {action}? \n>> ")
+    mode(selectedTrip, trips)

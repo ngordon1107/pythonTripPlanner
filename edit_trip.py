@@ -1,4 +1,4 @@
-def editTrip(trips):
+def editTrip(selectedTrip, trips):
     editTripMode = True
     while editTripMode:
         pass

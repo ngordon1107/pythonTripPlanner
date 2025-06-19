@@ -1,14 +1,27 @@
+import json
 from new_trip import newTrip
 from edit_trip import editTrip
 from delete_trips import deleteTrip
 from view_trips import viewTrip
-from utils import getDestination, getDate, getCurrentTrips
+from utils import getCurrentTrips, modifyTrip
 
-trips = {}
+db_file = "trips.json"
+
 running = True
 print("Welcome to the Trip Planner App!")
 
 while running:
+    # Initializing Database
+    try:
+        db = open(db_file,"r")
+        trips = json.load(db)
+
+    # If there is no existing database file, create one
+    except:
+        with open(db_file, "w") as db:
+            trips = {}
+            json.dump(trips, db)
+        continue
     # If there were any previously added trips, display them here
     if len(trips.keys()) > 0:
         getCurrentTrips(trips)
@@ -28,16 +41,18 @@ Exit = Exit Program
     elif userInput.upper() == "EXIT":
         running = False
     else:
+        # Error handling if user is attempting to enter a modifying trip mode when there are no trips saved
         if len(trips.keys()) == 0:
             print("*** Error: Please add a trip first!")
         elif userInput.upper() == "E":
-            editTrip(trips)
+            modifyTrip("edit", editTrip, trips)
         elif userInput.upper() == "V":
-            selectedTrip = input("Which trip would you like to view in more details? \n>> ")
-            viewTrip(selectedTrip)
+            modifyTrip("view in more detail", viewTrip, trips)
         elif userInput.upper() == "D":
-            deleteTrip(trips)
+            modifyTrip("delete", deleteTrip, trips)
         else:
             print("\n**Error: Invalid input, please try again!\n")
+    with open(db_file, "w") as db:
+        json.dump(trips, db)
 
 

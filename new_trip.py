@@ -11,7 +11,6 @@ def newTrip(trips):
         elif trip_name in trips.keys():
             print("\n**Error: It looks like we already have a trip with this name. Please rename your trip, or go to edit mode to edit the existing trip.\n")
             newTripMode = False
-            return
         else:
             region = input(f"Great! Which country/region will your {trip_name} be taking place? \n>> ")
             city = input(f"(Optional, press enter to skip) Is there a particular city you’re visiting? \n>> ")
