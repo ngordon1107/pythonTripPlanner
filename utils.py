@@ -1,6 +1,3 @@
-from types import NoneType
-
-
 def setDate(name):
     validDate = False
     while not validDate:
