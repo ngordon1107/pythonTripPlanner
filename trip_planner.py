@@ -52,7 +52,6 @@ Exit = Exit Program
             modifyTrip("delete", deleteTrip, trips)
         else:
             print("\n**Error: Invalid input, please try again!\n")
+    # Saving trips to the database
     with open(db_file, "w") as db:
         json.dump(trips, db)
-
-
