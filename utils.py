@@ -1,3 +1,6 @@
+from types import NoneType
+
+
 def setDate(name):
     validDate = False
     while not validDate:
@@ -28,12 +31,14 @@ def getDate(value):
     arrival = value["Arrival"]
     departure = value["Departure"]
     # If there is both an arrival date and a departure date, add them to 'date' connected by a dash
-    if arrival != "" and departure != "":
+    if arrival != None and departure != None:
         date = arrival + "-" + departure
-    elif departure != "":
+    elif departure != None:
         date = arrival
-    elif arrival != "":
+    elif arrival != None:
         date = departure
+    else:
+        date = "TBD"
     return date
 
 def getDestination(value):
