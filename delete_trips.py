@@ -1,9 +1,9 @@
-from utils import getDestination, getDate, getCurrentTrips
-
 def deleteTrip(selectedTrip, trips):
     deleteTripMode = True
     while deleteTripMode:
-        selectedTrip = input(f""" Which trip would you like to delete? 
-{getCurrentTrips(trips)}""")
-
+        for key in trips.keys():
+            if key.casefold() == selectedTrip.casefold():
+                break
+        del trips[key]
+        print(f"\n-*-*-*-*- {key} has been deleted. -*-*-*-*-\n")
         deleteTripMode = False
