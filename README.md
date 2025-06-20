@@ -22,25 +22,16 @@ python3 trip_planner.py
 
 ## Usage example
 
-**Placeholder text: A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+* Create your dream trip list to plan over the next few years!
+* Organize upcoming trip dates to ensure nothing overlaps :)
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+That's all for now! Stay tuned for more features
+
 
 ## Release History
 
-Placeholder text:
-* 0.2.1
-    * CHANGE: Update docs (module code remains unchanged)
-* 0.2.0
-    * CHANGE: Remove `setDefaultXYZ()`
-    * ADD: Add `init()`
-* 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-* 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()`
-* 0.0.1
-    * Work in progress
+* 1.0.0
+    * Initial release: Add, edit, view and delete trip details 
 
 
 ## Contributing
