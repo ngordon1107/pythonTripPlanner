@@ -1,6 +1,6 @@
 def editTrip(selectedTrip, trips):
     while True:
-        modifyKey = input(f"You are editing {selectedTrip}. Which detail would you like to change? (e.g. city, country/region, date etc.)\n>> ").strip()
+        modifyKey = input(f"You are editing {selectedTrip}. Which detail would you like to change? (e.g. city, country/region, date flight or hotel?)\n>> ").strip()
         modifyKey = modifyKey.title()
         # If the user enters either "country" or "region" it should correlate to key 'Country/Region'
         if modifyKey == "Country" or modifyKey == "Region":
@@ -25,6 +25,8 @@ def editTrip(selectedTrip, trips):
                    trips[key][modifyKey] = modifyValue
                    print(f"{modifyKey} updated to {modifyValue}.")
                    return
-        print("\n*** Error: Invalid input! Please double-check your spelling or double-check that the data type is associated with your trip!\n")
+        print("""\n*** Error: Invalid input! Please double-check your spelling or double-check that the data type is one of the following:
+      City, Country/region, Date, Flight, Hotel
+        \n""")
         return
 

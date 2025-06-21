@@ -1,8 +1,7 @@
 from utils import getDate
 
 def viewTrip(selectedTrip, trips):
-    viewTripMode = True
-    while viewTripMode:
+    while True:
         for key in trips.keys():
             if key.casefold() == selectedTrip.casefold():
                 print(f"-*-*-*-*- Here are the details for your {key} -*-*-*-*-\n")
@@ -18,4 +17,4 @@ def viewTrip(selectedTrip, trips):
                         for embeddedsubkey, embeddedsubvalue in subvalue.items():
                             print(f"~ {embeddedsubkey}: {embeddedsubvalue}")
         print("\n-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-\n")
-        viewTripMode = False
+        return
