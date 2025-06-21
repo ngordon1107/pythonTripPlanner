@@ -1,9 +1,7 @@
 def deleteTrip(selectedTrip, trips):
-    deleteTripMode = True
-    while deleteTripMode:
+    while True:
         for key in trips.keys():
             if key.casefold() == selectedTrip.casefold():
-                break
-        del trips[key]
-        print(f"\n-*-*-*-*- {key} has been deleted. -*-*-*-*-\n")
-        deleteTripMode = False
+                del trips[key]
+                print(f"\n-*-*-*-*- {key} has been deleted. -*-*-*-*-\n")
+                return

@@ -1,8 +1,8 @@
-from utils import setDate
+from utils import setDate, setAccommodations, setFlight, optional_message
+
 
 def newTrip(trips):
-    newTripMode = True
-    while newTripMode:
+    while True:
         trip_name = input("Awesome! Let’s start planning! To start off, what would you like to call this trip? \n>> ")
         if trip_name == "":
             print("\n**Error: You must enter a trip name!\n")
@@ -10,37 +10,30 @@ def newTrip(trips):
         # Checking for duplicate keys(trip names)
         elif trip_name in trips.keys():
             print("\n**Error: It looks like we already have a trip with this name. Please rename your trip, or go to edit mode to edit the existing trip.\n")
-            newTripMode = False
+            return
         else:
-            region = input(f"Great! Which country/region will your {trip_name} be taking place? \n>> ")
-            city = input(f"(Optional, press enter to skip) Is there a particular city you’re visiting? \n>> ")
+            region = input(f"Great! Which country/region will your {trip_name} be taking place? {optional_message} \n>> ")
+            city = input(f"Is there a particular city you’re visiting? {optional_message}\n>> ")
 
             # Collecting and Validating date input
             arrival = setDate("arrival")
             departure = setDate("departure")
 
-            # Adding trip details to list
+            general_notes = input(f"{optional_message} Any notes you would like to add to this trip?\n>> ")
+
+            # Adding base trip details to list
             trips[trip_name] = {
                 "City": city,
                 "Country/Region": region,
                 "Arrival": arrival,
                 "Departure": departure,
-                # "Hotel":
-                #     {
-                #       "Name": name,
-                #       "Address": address,
-                #       "Phone": phone,
-                #       "Check in": hotel_check_in,
-                #       "Check out": hotel_check_out,
-                #       "Total Cost": cost,
-                #       "Notes": notes
-                #     }
-                # "Flight":
-                #     {
-                #         "Airline": airline,
-                #         "Departure": flight_departure,
-                #         "Arrival": flight_arrival
-                #     }
+                "Notes": general_notes
             }
+
+            # Prompt for Hotel and Flight information. If not skipped, add to the dictionary
+            setAccommodations(trips, trip_name)
+            setFlight(trips, trip_name)
+
+            #
             print("\nYour trip has been added! Returning to homepage...")
-            newTripMode = False
+            return
