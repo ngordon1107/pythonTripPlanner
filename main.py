@@ -7,21 +7,20 @@ from utils import getCurrentTrips, modifyTrip
 
 db_file = "trips.json"
 
-running = True
+# Initializing Database
+try:
+    db = open(db_file, "r")
+    trips = json.load(db)
+
+# If there is no existing database file, create one
+except:
+    with open(db_file, "w") as db:
+        trips = {}
+        json.dump(trips, db)
+
 print("Welcome to the Trip Planner App!")
 
-while running:
-    # Initializing Database
-    try:
-        db = open(db_file,"r")
-        trips = json.load(db)
-
-    # If there is no existing database file, create one
-    except:
-        with open(db_file, "w") as db:
-            trips = {}
-            json.dump(trips, db)
-        continue
+while True:
     # If there were any previously added trips, display them here
     if len(trips.keys()) > 0:
         getCurrentTrips(trips)
@@ -29,7 +28,7 @@ while running:
     # Initiating Option Menu
     userInput = input("""
 What would you like to do next? Please enter the appropriate keyword to proceed.
-    
+
 A = Add a new trip
 V = View more details about a specific trip
 E = Edit an existing trip/add more details to an existing trip

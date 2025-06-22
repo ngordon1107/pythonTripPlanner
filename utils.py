@@ -65,6 +65,35 @@ def setTime(time_type):
             else:
                 print("*** Error: Please be sure to use the format HH:MM AM or HH:MM PM (the space is required)!\n")
 
+def setAccommodationsCheckInOut(in_out):
+    while True:
+        check_in_out_protocol = input("Does your accommodations have a specific check in or check out time? Y/N\n>> ")
+        if check_in_out_protocol.upper() == "Y":
+            accommodations_check_in_out = setTime(in_out)
+        elif check_in_out_protocol.upper() == "N":
+            accommodations_check_in_out = None
+        else:
+            print(y_n_error)
+            continue
+        return accommodations_check_in_out
+
+def setPhone():
+    while True:
+        country_code = input(
+            f"Does your accommodations have a phone number? If so please enter the country code if applicable {optional_message}\n>> ")
+        phone = input(
+            f"Please enter the phone number without the country code for your accommodations if applicable {optional_message}:\n>> ")
+        if phone == "":
+            phone = "N/A"
+        # Validate phone number has correct number of digits. 15 if including area code with dashes, 12 if only including area code and dashes, 10 if only including area code without dashes
+        elif len(phone.strip()) == 12 or len(phone.strip()) == 10:
+            phone = country_code + " " + phone
+        else:
+            print(
+                "*** Error: Invalid phone number! If you are adding a country code, please double-check that the + symbol is included in your input. Otherwise, please ensure the number is valid!")
+            continue
+        return phone
+
 def setAccommodations(trips, trip_name):
         while True:
             accommodations = input("Do you have any information for your accommodations yet? Y/N\n>> ").strip()
@@ -73,28 +102,11 @@ def setAccommodations(trips, trip_name):
                 accommodations_name = input(f"Does your accommodations have a name? {optional_message}\n>> ")
                 accommodations_address = input(f"What's the address of your accommodations? {optional_message}\n>> ")
 
-                country_code = input(f"Does your accommodations have a phone number? If so please enter the country code if applicable {optional_message}\n>> ")
-                phone = input(f"Please enter the phone number without the country code for your accommodations if applicable {optional_message}:\n>> ")
-                if phone == "":
-                    phone = "N/A"
-                # Validate phone number has correct number of digits. 15 if including area code with dashes, 12 if only including area code and dashes, 10 if only including area code without dashes
-                elif len(phone.strip()) == 12 or len(phone.strip()) == 10:
-                    phone = country_code + " " + phone
-                else:
-                    print("*** Error: Invalid phone number! If you are adding a country code, please double-check that the + symbol is included in your input. Otherwise, please ensure the number is valid!")
-                    continue
-                while True:
-                    check_in_out_protocol = input("Does your accommodations have a specific check in or check out time? Y/N\n>> ")
-                    if check_in_out_protocol.upper() == "Y":
-                       accommodations_check_in = setTime("check in")
-                       accommodations_check_out = setTime("check out")
-                    elif check_in_out_protocol.upper() == "N":
-                        accommodations_check_in = None
-                        accommodations_check_out = None
-                    else:
-                        print(y_n_error)
-                        continue
-                    break
+                setPhone()
+
+                accommodations_check_in = setAccommodationsCheckInOut("check in")
+                accommodations_check_out = setAccommodationsCheckInOut("check out")
+
                 cost = input(f"How much is your accommodations? {optional_message}\n>> ")
                 accommodations_notes = input("Any additional notes you'd like to add for your accommodations?\n>> ")
 
@@ -103,8 +115,8 @@ def setAccommodations(trips, trip_name):
                     "Name": accommodations_name,
                     "Address": accommodations_address,
                     "Phone": phone,
-                    "Check in": accommodations_check_in,
-                    "Check out": accommodations_check_out,
+                    "Check In": accommodations_check_in,
+                    "Check Out": accommodations_check_out,
                     "Cost": cost,
                     "Notes": accommodations_notes
                 }
@@ -115,6 +127,17 @@ def setAccommodations(trips, trip_name):
             else:
                 break
 
+def setFlightDateTime(type, origin, destination):
+    while True:
+        flight_date = setDate(
+            f"{type} flight (the date you will leave your {origin} to begin your travel {destination})", False)
+        flight_time = setTime(f"{type} flight")
+        if flight_date and flight_time:
+            flight_datetime = flight_date + " " + flight_time
+            return flight_datetime
+        else:
+            print("\n*** Error: Please enter a valid date and time!")
+            continue
 
 def setFlight(trips, trip_name):
     while True:
@@ -125,36 +148,18 @@ def setFlight(trips, trip_name):
             airline = input("What airline are you flying with?\n>> ")
             # Getting departure and arrival date and time and confirmation
 
-            while True:
-                flight_arrival_date = setDate("arriving flight (when you land in your destination)", False)
-                flight_arrival_time = setTime("arrival flight")
-                if flight_arrival_date and flight_arrival_time:
-                    flight_arrival = flight_arrival_date + " " + flight_arrival_time
-                    break
-                else:
-                    print("\n*** Error: Please enter a valid date and time!")
-                    continue
+            flight_arrival = setFlightDateTime("arriving", "home","to your destination")
             arrival_confirmation = input("What is your arrival confirmation number?\n>> ")
 
-            while True:
-                flight_departure_date = setDate("departure flight", False)
-                flight_departure_time = setTime("departure flight")
-                flight_departure = flight_departure_date + " " + flight_departure_time
-                if flight_departure_date and flight_departure_time:
-                    flight_departure = flight_departure_date + " " + flight_departure_time
-                    break
-                else:
-                    print("\n*** Error: Please enter a valid date and time!")
-                    continue
-
+            flight_departure = setFlightDateTime("departing", "vacation", "back home")
             depart_confirmation = input("What is your departure confirmation number?\n>> ")
 
             # Adding flight details to trip
             trips[trip_name]["Flight"] = {
                 "Airline": airline,
-                "Departure": flight_departure,
+                "Departure Date/Time": flight_departure,
                 "Departure Confirmation Number": depart_confirmation,
-                "Arrival": flight_arrival,
+                "Arrival Date/Time": flight_arrival,
                 "Arrival Confirmation Number": arrival_confirmation,
             }
             return
