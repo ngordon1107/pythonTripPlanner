@@ -38,7 +38,7 @@ Exit = Exit Program
     if userInput.upper() == "A":
         newTrip(trips)
     elif userInput.upper() == "EXIT":
-        running = False
+        break
     else:
         # Error handling if user is attempting to enter a modifying trip mode when there are no trips saved
         if len(trips.keys()) == 0:
