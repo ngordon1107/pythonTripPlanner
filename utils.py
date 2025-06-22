@@ -105,7 +105,7 @@ def setAccommodations(trips, trip_name):
                 accommodations_name = input(f"Does your accommodations have a name? {optional_message}\n>> ")
                 accommodations_address = input(f"What's the address of your accommodations? {optional_message}\n>> ")
 
-                setPhone()
+                phone = setPhone()
 
                 accommodations_check_in = setAccommodationsCheckInOut("check in")
                 accommodations_check_out = setAccommodationsCheckInOut("check out")
