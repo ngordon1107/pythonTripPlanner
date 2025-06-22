@@ -49,7 +49,6 @@ def setDate(name, optional=True):
                 continue
         # Ending loop if user did not enter anything
         return
-    return
 
 def setTime(time_type):
     while True:
