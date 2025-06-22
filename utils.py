@@ -93,7 +93,7 @@ def setPhone():
             phone = country_code + " " + phone
         else:
             print(
-                "*** Error: Invalid phone number! If you are adding a country code, please double-check that the + symbol is included in your input. Otherwise, please ensure the number is valid!")
+                "*** Error: Invalid phone number! If you are adding a country code, please do so in the next question when prompted for country code. Otherwise, please ensure your number is formatted as: 123-123-1234 or 1231231234!")
             continue
         return phone.strip()
 
