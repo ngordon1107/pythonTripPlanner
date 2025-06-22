@@ -30,10 +30,12 @@ python trip_planner.py
 That's all for now! Stay tuned for more features
 
 ## Release History
+* 1.1.1
+  * Edit trip name and notes!
 * 1.1.0
-  * Edit Hotel and Accomodations information
+  * Edit Flight and Accommodations information
 * 1.0.5
-  * Add and view Hotel and Accommodations 
+  * Add and view Accommodations and Flights 
 * 1.0.0
     * Initial release: Add, edit, view and delete trip details 
 
