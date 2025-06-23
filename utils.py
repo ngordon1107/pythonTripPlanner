@@ -22,8 +22,10 @@ y_n_error = "*** Error: Please input either Y for yes or N for no!"
 # # ---- Setters -----
 def setDate(name, optional=True):
     while True:
+        # Checking if the date is skippable/optional, if so, use the optional message in the data_input prompt
         if optional:
             date_input = input(f"{optional_message} Do you have a date for your {name.lower()}? (MM/DD/YYYY)\n>> ")
+        # If the date is not skippable/optional do not use the optional message in the data_input prompt
         else:
             date_input = input(f"Do you have a date for your {name.lower()}? (MM/DD/YYYY)\n>> ")
         # Checking to see if user attempted to enter a date.
@@ -70,7 +72,7 @@ def setTime(time_type):
 
 def setAccommodationsCheckInOut(in_out):
     while True:
-        check_in_out_protocol = input("Does your accommodations have a specific check in or check out time? Y/N\n>> ")
+        check_in_out_protocol = input(f"Does your accommodations have a specific {in_out} time? Y/N\n>> ")
         if check_in_out_protocol.upper() == "Y":
             accommodations_check_in_out = setTime(in_out)
         elif check_in_out_protocol.upper() == "N":
@@ -86,9 +88,10 @@ def setPhone():
             f"Does your accommodations phone number have a country code? {optional_message}\n>> ")
         phone = input(
             f"Please enter the remaining phone number without the country code for your accommodations {optional_message}:\n>> ")
+        # If user does not enter a phone number, set the phone number to "N/A" as a default
         if phone == "":
             phone = "N/A"
-        # Validate phone number has correct number of digits. 15 if including area code with dashes, 12 if only including area code and dashes, 10 if only including area code without dashes
+        # Validate phone number has correct number of digits. 12 if only including area code and dashes, 10 if only including area code without dashes
         elif len(phone.strip()) == 12 or len(phone.strip()) == 10:
             phone = country_code + " " + phone
         else:
@@ -100,7 +103,7 @@ def setPhone():
 def setAccommodations(trips, trip_name):
         while True:
             accommodations = input("Do you have any information for your accommodations yet? Y/N\n>> ").strip()
-            # Validating whether user pressed enter to skip or accidentally answered no
+            # If user has information for their accommodations and enters "Y", begin the setAccommodations logic
             if accommodations.upper() == "Y":
                 accommodations_name = input(f"Does your accommodations have a name? {optional_message}\n>> ")
                 accommodations_address = input(f"What's the address of your accommodations? {optional_message}\n>> ")
@@ -124,20 +127,27 @@ def setAccommodations(trips, trip_name):
                     "Notes": accommodations_notes
                 }
                 break
+            # If the user enters a non-valid value (neither "N" nor "Y") to the accommodations prompt, throw the yes no error (prompting them to enter either y or n) and restart the accommodations flow)
             elif accommodations.upper() != "N":
                 print(y_n_error)
                 continue
+            # If user entered "N", break the while loop and end the function
             else:
                 break
 
 def setFlightDateTime(type, origin, destination):
     while True:
+        # Prompt the user for the date of their flight. Customize the set Date message based on the type (arrival/departure), origin/destination (destination or home)
         flight_date = setDate(
             f"{type} flight (the date you will leave your {origin} to begin your travel {destination})", False)
+        # Prompt the user for the time of their flight using the setTime function, customize the prompt based on arriving/departing flight
         flight_time = setTime(f"{type} flight")
+        # Validating that a date and time were entered -- both are required fields
         if flight_date and flight_time:
+            # Add the date and time to a string and return the value
             flight_datetime = flight_date + " " + flight_time
             return flight_datetime
+        # If either the date or time is missing, throw and error to the user and restart the flight date/time flow
         else:
             print("\n*** Error: Please enter a valid date and time!")
             continue
@@ -146,7 +156,7 @@ def setFlight(trips, trip_name):
     while True:
         # Checking for Flight information
         flight = input("Do you have any flight information yet? Y/N\n>> ")
-        # Validating whether user pressed enter to skip or accidentally answered no
+        # Validating whether user pressed "Y" to proceed
         if flight.upper() == "Y":
             airline = input("What airline are you flying with?\n>> ")
             # Getting departure and arrival date and time and confirmation
@@ -166,8 +176,10 @@ def setFlight(trips, trip_name):
                 "Arrival Confirmation Number": arrival_confirmation,
             }
             return
+        # If user pressed "N" to skip, then break the while loop and end the function
         elif flight.upper() == "N":
             break
+        # If user entered an invalid input, throw the yes/no error (y/n error) and  restart the setFLight flow
         else:
             print(y_n_error)
             continue
@@ -188,25 +200,24 @@ def getDate(value):
         date = "TBD"
     return date
 
-def getDestination(value):
-    # Setting default destination if left empty
-    destination = "Coming Soon"
-    city = value["City"]
-    region = value["Country/Region"]
-    # If there is both a city and Country/Region add both to 'destination' separated by a  comma
-    if city != "" and region != "":
-        destination = city + ", " + region
-    elif city != "":
-        destination = city
-    elif region != "":
-        destination = region
-    return destination
-
 def getCurrentTrips(trips):
     print("-*-*-*-*-Here are your current trips-*-*-*-*-\n")
     for key, value in trips.items():
         # Collecting the destination
-        destination = getDestination(value)
+        # # Setting default destination if left empty
+        destination = "Coming Soon"
+        city = value["City"]
+        country_region = value["Country/Region"]
+        # If there is both a city and Country/Region add both to 'destination' separated by a  comma
+        if city and country_region:
+            destination = city + ", " + country_region
+        # If there is only a city, the destination displayed is just the city
+        elif city:
+            destination = city
+        # If there is only a country/region, the destination displayed is just the country/region
+        elif country_region:
+            destination = country_region
+
         # Collecting the date
         date = getDate(value)
         print(f"Name: {key} | Destination: {destination} | Date: {date}")

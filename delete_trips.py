@@ -1,7 +1,9 @@
 def deleteTrip(selectedTrip, trips):
     while True:
-        for key in trips.keys():
-            if key.casefold() == selectedTrip.casefold():
-                del trips[key]
-                print(f"\n-*-*-*-*- {key} has been deleted. -*-*-*-*-\n")
+        # Grabbing original trip name -- accommodates instances where user utilizes unpredictable casing
+        for trip_name in trips.keys():
+            if trip_name.upper() == selectedTrip.upper():
+                # Once found, delete the trip name from the dictionary and display a success message
+                del trips[trip_name]
+                print(f"\n-*-*-*-*- {trip_name} has been deleted. -*-*-*-*-\n")
                 return
