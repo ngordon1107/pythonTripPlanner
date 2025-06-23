@@ -12,7 +12,7 @@ def newTrip(trips):
             print("\n**Error: It looks like we already have a trip with this name. Please rename your trip, or go to edit mode to edit the existing trip.\n")
             return
         else:
-            region = input(f"Great! Which country/region will your {trip_name} be taking place? {optional_message} \n>> ")
+            country_region = input(f"Great! Which country/region will your {trip_name} be taking place? {optional_message} \n>> ")
             city = input(f"Is there a particular city you’re visiting? {optional_message}\n>> ")
 
             # Collecting and Validating date input
@@ -24,7 +24,7 @@ def newTrip(trips):
             # Adding base trip details to list
             trips[trip_name] = {
                 "City": city,
-                "Country/Region": region,
+                "Country/Region": country_region,
                 "Arrival": arrival,
                 "Departure": departure,
                 "Notes": general_notes

@@ -20,7 +20,7 @@ def editTrip(selectedTrip, trips):
             modifyKey = "Notes"
 
         for trip_name in trips.keys():
-            # Grabbing original trip name -- due to unique casing reasons
+            # Grabbing original trip name -- accommodates instances where user utilizes unpredictable casing
             if trip_name.upper() == selectedTrip.upper():
                 # Validating if the user is trying to edit the trip name
                 if modifyKey == selectedTrip:
