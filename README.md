@@ -15,7 +15,7 @@ Soon to be supported:
 
 No installation required.
 
-Just run the trip_planner.py file in your CLI using the following command:
+Just run the main.py file in your CLI using the following command:
 
 ```sh
 python main.py
